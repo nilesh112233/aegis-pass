@@ -23,7 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-src/components/ui
-src/components/mode-toggle.tsx
-src/components/navbar.tsx
-src/context/theme-provider.tsx
+.env
+.env.*
