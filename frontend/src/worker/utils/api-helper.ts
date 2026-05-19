@@ -84,6 +84,9 @@ export async function fetchVaultApi(
         const message =
             data?.non_field_errors?.[0] ||
             data?.message ||
+            data?.folder?.[0] ||
+            data?.detail ||
+            JSON.stringify(data) ||
             "Something went wrong.";
         throw new Error(message);
     }

@@ -367,7 +367,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 // console.log(item_meta_preview)
                 // console.log(item_data)
                 const { folder, isFavourite, ...item_meta} = item_meta_preview;
-                // console.log(folder)
+                console.log(folder)
                 // console.log(isFavourite)
                 // console.log(item_meta)
 
@@ -380,7 +380,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                     iv_meta: encrypted_item_meta_preview.iv,
                     encrypted_data: encrypted_item_data.ciphertext,
                     iv_data: encrypted_item_data.iv,
-                    folder: folder,
+                    folder: folder === "_nofolder" ? null : folder,
                     is_favourite: isFavourite,
                 })
 

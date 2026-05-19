@@ -98,7 +98,7 @@ class LoginView(APIView):
             value=str(refresh),
             httponly=True,
             secure=settings.COOKIE_SECURE,
-            samesite="Strict",
+            samesite="None" if not settings.DEBUG else "Strict",
             max_age=15 * 60,
         )
 
@@ -151,7 +151,7 @@ class RefreshView(APIView):
             value=str(new_refresh),
             httponly=True,
             secure=settings.COOKIE_SECURE,
-            samesite="Strict",
+            samesite="None" if not settings.DEBUG else "Strict",
             max_age=15 * 60,
         )
 
@@ -184,7 +184,7 @@ class LogoutView(APIView):
 
         response.delete_cookie(
             key="refresh_token",
-            samesite="Strict",
+            samesite="None" if not settings.DEBUG else "Strict",
         )
 
         return response
@@ -217,7 +217,7 @@ class DeleteAccountView(APIView):
         response = Response({ "message": "Account permanently deleted."}, status=status.HTTP_200_OK)
         response.delete_cookie(
             key="refresh_token",
-            samesite="Strict",
+            samesite="None" if not settings.DEBUG else "Strict",
         )
         # response.delete_cookie("refresh_token", sameSite="Strict")
         return response

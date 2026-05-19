@@ -204,7 +204,7 @@ export default function ItemTableBase({ data, checkBoxColumn=false, compactTable
                                     <div className="">
                                         <div className="cursor-pointer">{item.item_meta_preview.name}</div>
                                         {item.item_meta_preview.url && 
-                                            <div className="flex items-center justify-center text-xs text-muted-foreground">
+                                            <div className="flex items-center justify-start text-xs text-muted-foreground">
                                                 <Globe size={11} className="text-xs text-muted-foreground mt-0.5"/>
                                                 <div className="text-xs text-muted-foreground cursor-pointer pl-1 truncate max-w-[200px]">{item.item_meta_preview.url}</div>
                                             </div>
