@@ -1,5 +1,6 @@
 import {
   Bell,
+  BellDot,
   ChevronsUpDown,
   CircleQuestionMark,
   LogOut,
@@ -104,8 +105,8 @@ export function NavUser({
                 <CircleQuestionMark />
                 Get Help
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
+              <DropdownMenuItem onClick={() => navigate("/notification")}>
+                <BellDot />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>

@@ -19,6 +19,7 @@ import VaultFoldersPage from "@/pages/folders-page";
 import AddFolderPage from "@/pages/AddFolderPage";
 import FolderDetailPage from "@/pages/folder-detail-page";
 import AddRemoveFolderItemPage from "@/pages/add-remove-folder-items";
+import Notification from "@/components/notification";
 
 
 const AppRoutes = () => {
@@ -64,6 +65,8 @@ const AppRoutes = () => {
                     <Route path="settings/account"      element={ <AccountPage /> } />
                     <Route path="settings/appearance"   element={ <AppearancePage /> } />
                     <Route path="settings/security"     element={ <SecurityPage /> } />
+
+                    <Route path="notification"     element={ <Notification /> } />
 
                     
                     <Route path="/tools/generator"          element={ <GeneratorPage /> } />

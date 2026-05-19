@@ -27,6 +27,7 @@ export default function VaultPage() {
     const [weakPasswords, setWeakPasswords] = useState<number>(0)
     const [recentlyAdded, setRecentlyAdded] = useState<number>(0)
     const [noOfPasswordsReused, setNoOfPasswordsReused] = useState<number>(0)
+    const [noOfFolders, setNoOfFolders] = useState<number>(0)
     const [lastScannedVaultAt, setLastScannedVaultAt] = useState("")
 
     const {searchQuery} = useOutletSearch();
@@ -59,6 +60,8 @@ export default function VaultPage() {
                 const data = await client.CryptoService.getItems();
                 console.log(data);
                 setItems(data ?? null);
+                const folders = await client.CryptoService.getFolders();
+                setNoOfFolders(folders.length)
             } catch (error: any) {
                 console.log(error);
             } finally {
@@ -158,7 +161,7 @@ export default function VaultPage() {
                                     <KeyRound />
                                 </div>
                             </div>
-                            <span className="text-xs text-fg-muted">some message</span>
+                            <span className="text-xs text-fg-muted">{noOfFolders && `across ${noOfFolders} folders`}</span>
                         </Card>
                         <Card className="p-5 flex-1">
                             <div className="flex justify-between items-center flex-1">
@@ -170,7 +173,7 @@ export default function VaultPage() {
                                     <RotateCcwKey />
                                 </div>
                             </div>
-                            <span className="text-xs text-fg-muted">{noOfPasswordsReused} passwords are used multiple times</span>
+                            <span className="text-xs text-fg-muted">{noOfPasswordsReused} {noOfPasswordsReused === 1 ? "password is" : "passwords are"} used multiple times</span>
                         </Card>
                         <Card className="p-5 flex-1">
                             <div className="flex justify-between items-center flex-1">

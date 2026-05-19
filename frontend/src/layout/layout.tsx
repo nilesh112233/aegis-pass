@@ -28,6 +28,7 @@ const PAGE_TITLES: Record<string, string> = {
     "/settings/security":       "Security",
     "/settings/appearance":     "Appearance",
     "/generate":                "Password Generator",
+    "/notification":            "Notifications",
 };
 
 export default function Layout() {
