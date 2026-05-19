@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import { useWorkerService } from "@/context/worker-provider";
 import { toastQueue } from "@/utils/toast-queue";
 import { HistoryContent } from "@/components/history-content";
-import { Star } from "lucide-react";
 import type { PatchItem } from "@/worker/utils/types.vault";
 
 
@@ -31,7 +30,7 @@ export const ItemFormBasePage = () => {
     const { client } = useWorkerService();
     const { id, type } = useParams();
     const [item, setItem] = useState<any>(null);
-    const [isFavourite, setIsFavourite] = useState<boolean>(false);
+    // const [isFavourite, setIsFavourite] = useState<boolean>(false);
     
 
     const mode = location.pathname.includes("/edit")
@@ -81,7 +80,7 @@ export const ItemFormBasePage = () => {
                 setIsLoading(true);
                 const item = await client.CryptoService.getItem(id);
                 setItem(item)
-                setIsFavourite(item.is_favourite)
+                // setIsFavourite(item.is_favourite)
 
                 const data = config.load_decrypted_data(item)
                 form.reset({ ...data } as ItemFormValidatedData)

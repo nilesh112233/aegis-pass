@@ -2,7 +2,7 @@ import { useWorkerService } from "@/context/worker-provider"
 import type { DecryptedFolder } from "@/worker/utils/types.vault";
 import { ChevronRight, Dot, EllipsisVertical, Folder } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
-import { Navigate, useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import timeAgo from "@/utils/time-ago-format";
 import { useOutletSearch } from "@/hooks/use-outlet-search";

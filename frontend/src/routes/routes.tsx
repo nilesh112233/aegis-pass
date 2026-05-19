@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation, type Location } from "react-router-dom";
+import { Routes, Route, useLocation, type Location } from "react-router-dom";
 import ProtectedRoute from "@/components/protected-route";
 import LoginPage from "@/pages/login-page";
 import VaultPage from "@/pages/vault-page";
@@ -20,6 +20,7 @@ import AddFolderPage from "@/pages/AddFolderPage";
 import FolderDetailPage from "@/pages/folder-detail-page";
 import AddRemoveFolderItemPage from "@/pages/add-remove-folder-items";
 import Notification from "@/components/notification";
+import NotFoundPage from "@/pages/not-found-page";
 
 
 const AppRoutes = () => {
@@ -80,7 +81,7 @@ const AppRoutes = () => {
                 </Route>
 
                 {/* <Route path="/" element={ <Navigate to="/vault" replace /> } /> */}
-                {/* <Route path="*" element={ <Navigate to="/vault" replace /> } /> */}
+                <Route path="*" element={ <NotFoundPage /> } />
             </Routes>
 
             {state?.backgroundLocation && (

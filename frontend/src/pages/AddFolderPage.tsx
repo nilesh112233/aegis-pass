@@ -25,7 +25,7 @@ export default function AddFolderPage() {
     const location = useLocation();
     const { client } = useWorkerService();
     const { id } = useParams();
-    const [folder, setFolder] = useState<any>(null);
+    // const [folder, setFolder] = useState<any>(null);
 
     
 
@@ -60,7 +60,7 @@ export default function AddFolderPage() {
             try {
                 const folders = await client.CryptoService.getFolders();
                 const folder = folders.filter(f => f.id === id)[0]
-                setFolder(folder)
+                // setFolder(folder)
                 form.reset({...folder} as folderFormValidatedData)
 
             } catch (error) {

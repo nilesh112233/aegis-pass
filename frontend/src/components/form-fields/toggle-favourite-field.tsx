@@ -1,6 +1,6 @@
 import type { Control } from "react-hook-form"
 import { Controller } from "react-hook-form"
-import { Field, FieldLabel, FieldError } from "../ui/field"
+import { Field, FieldError } from "../ui/field"
 import { Star } from "lucide-react"
 import { Toggle } from "../ui/toggle"
 
@@ -15,9 +15,7 @@ type Props = {
 
 export const ToggleFavouriteField = ({
     name,
-    label,
     control,
-    placeholder,
     mode
 }: Props) => {
     return (

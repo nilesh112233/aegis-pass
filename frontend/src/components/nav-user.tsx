@@ -1,5 +1,4 @@
 import {
-  Bell,
   BellDot,
   ChevronsUpDown,
   CircleQuestionMark,

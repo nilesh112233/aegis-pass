@@ -61,9 +61,9 @@ export default function ItemTableBase({ data, checkBoxColumn=false, compactTable
     //     setShowUsername(localStorage.getItem("show_username"));
     // }, [localStorage])
 
-    const [show_type_badge, setShowTypeBadge] = useLocalStorage("show_type_badge", true);
-    const [show_updated_at, setShowUpdatedAt] = useLocalStorage("show_updated_at", true);
-    const [show_username, setShowUsername] = useLocalStorage("show_username", true);
+    const [show_type_badge] = useLocalStorage("show_type_badge", true);
+    const [show_updated_at] = useLocalStorage("show_updated_at", true);
+    const [show_username] = useLocalStorage("show_username", true);
 
     // sync when parent passes new data (e.g. after page refetch)
     useEffect(() => {
