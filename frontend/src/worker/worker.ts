@@ -82,7 +82,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
             case "AUTH_STATUS_CHECK": {
                 const token = SecureStorage.getAccessToken();
-                console.log(`token = ${token}`)
+                // console.log(`token = ${token}`)
                 self.postMessage({
                     id: message.id,
                     type: "SUCCESS",
@@ -128,9 +128,10 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 SecureStorage.setUser(data.user);
                 // console.log(SecureStorage.getUser());
                 SecureStorage.setEncryptionKey(encryptionKey);
-                console.log(data.user)
+                // console.log(data.user)
 
-                SecureStorage.setSessionTimeoutLimit(data.user.inactivity_timeout);
+                // SecureStorage.setSessionTimeoutLimit(data.user.inactivity_timeout);
+                tokenManager.updateSessionTimeoutLimit(data.user.inactivity_timeout);
 
                 self.postMessage({
                     id: message.id,
@@ -210,7 +211,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                             { "Authorization": `Bearer ${token}` },
                             "PATCH"
                         )
-                        if (timeoutLimit) SecureStorage.setSessionTimeoutLimit(timeoutLimit);
+                        if (timeoutLimit) tokenManager.updateSessionTimeoutLimit(timeoutLimit);
                     }
                 } catch (error) {
                     console.log(error)
@@ -278,7 +279,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 // CACHE LOGIC: look for vaultItemsListCache
                 // if it exists return that cache
                 const cached = SecureStorage.getItemListCache();
-                console.log(cached)
+                // console.log(cached)
                 if (cached) {
                     self.postMessage({
                         id: message.id,
@@ -288,7 +289,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                     break;
                 }
 
-                console.log("code still running")
+                // console.log("code still running")
 
                 const raw = await fetchVaultApi("items/", "GET");
                 

@@ -6,6 +6,7 @@ import type { DecryptedFolder, DecryptedVaultItemDetail, DecryptedVaultItemMeta,
 import type { WorkerRequest, WorkerResponse, WorkerPushEvent } from "./worker";
 import type { VaultAnalysis } from "./utils/vault-analyser";
 import type { SessionDetail } from "./utils/secure-storage";
+import { toastQueue } from "@/utils/toast-queue";
 
 export class WorkerClient {
     private worker: Worker;     // Main Worker for the app
@@ -77,6 +78,8 @@ export class WorkerClient {
 
             this.callbacks.delete(res.id);
         }
+
+        this.onForceLogout = () => {toastQueue.push("You are logged out due to inactivity.", "success")}
 
         this.AuthService = {
             ping: () => this.sendMessage("PING"),

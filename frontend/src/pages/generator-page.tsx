@@ -135,33 +135,44 @@ const GeneratorPage = () => {
                                 />
                                 <Label htmlFor="symbolsCheckbox" className="font-normal" >Include symbols (!@#$%^&*)</Label>
                             </div>
-                            <div className="flex col-2 gap-5 w-full">
-                                <div className="col-1 w-1/2">
-                                    <Label className="text-muted-foreground mb-2">Minimum numbers</Label>
-                                    <Input 
+                            <div className="flex flex-col md:flex-row gap-5 w-full">
+                                <div className="w-full md:w-1/2">
+                                    <Label className="text-muted-foreground mb-2">
+                                        Minimum numbers
+                                    </Label>
+                                    <Input
                                         type="number"
                                         min={0}
-                                        max={9} 
-                                        value={minNumbers} 
+                                        max={9}
+                                        value={minNumbers}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             setMinNumbers(Number(e.target.value));
-                                            if (passLength < safePassLength) setPassLength(safePassLength);
+
+                                            if (passLength < safePassLength) {
+                                                setPassLength(safePassLength);
+                                            }
                                         }}
                                     />
                                 </div>
-                                <div className="col-2 w-1/2">
-                                    <Label className="text-muted-foreground mb-2">Minimum special</Label>
-                                    <Input 
+                                <div className="w-full md:w-1/2">
+                                    <Label className="text-muted-foreground mb-2">
+                                        Minimum special
+                                    </Label>
+                                    <Input
                                         type="number"
                                         min={0}
-                                        max={9} 
-                                        value={minSymbols} 
+                                        max={9}
+                                        value={minSymbols}
                                         onChange={(e: ChangeEvent<HTMLInputElement>) => {
                                             setMinSymbols(Number(e.target.value));
-                                            if (passLength < safePassLength) setPassLength(safePassLength);
-                                        }} 
+
+                                            if (passLength < safePassLength) {
+                                                setPassLength(safePassLength);
+                                            }
+                                        }}
                                     />
                                 </div>
+
                             </div>
                         </div>
                     </div>

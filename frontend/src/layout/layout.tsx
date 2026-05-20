@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import VaultHeader from "@/components/vault-header";
 
 
 const PAGE_TITLES: Record<string, string> = {
@@ -44,7 +45,7 @@ export default function Layout() {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <SidebarInset>
+            {/* <SidebarInset>
                 <header className=" sticky top-0 z-50 bg-background flex h-16 shrink-0 items-center justify-between gap-2 mx-4">
                     <div className="flex items-center gap-2">
                         <SidebarTrigger className="-ml-1" />
@@ -99,6 +100,12 @@ export default function Layout() {
                         </div>
                     }
                 </header>
+                <div className="p-4">
+                    <Outlet context={{ searchQuery }} />
+                </div>
+            </SidebarInset> */}
+            <SidebarInset>
+                <VaultHeader title={title}  hideSearchBar={hideSearchBar} searchQuery={searchQuery} setSearchQuery={setSearchQuery} sidebarTrigger={<SidebarTrigger className="-ml-1" />} />
                 <div className="p-4">
                     <Outlet context={{ searchQuery }} />
                 </div>
