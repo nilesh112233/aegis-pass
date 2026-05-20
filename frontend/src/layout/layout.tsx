@@ -1,15 +1,10 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
     SidebarProvider,
     SidebarInset,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
-import { Plus, Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 import VaultHeader from "@/components/vault-header";
 
@@ -35,9 +30,7 @@ const PAGE_TITLES: Record<string, string> = {
 export default function Layout() {
     const location = useLocation();
     const title = PAGE_TITLES[location.pathname] ?? "Vault";
-    const HIDE_ADD_BUTTON = [ "/settings", "/vault/trash" ];
     const HIDE_SEARCH_BUTTON = [ "/settings", "/vault/trash", "/tools" ];
-    const hideAddButton = HIDE_ADD_BUTTON.some((path) => location.pathname.startsWith(path));
     const hideSearchBar = HIDE_SEARCH_BUTTON.some((path) => location.pathname.startsWith(path));
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -45,65 +38,6 @@ export default function Layout() {
     return (
         <SidebarProvider>
             <AppSidebar />
-            {/* <SidebarInset>
-                <header className=" sticky top-0 z-50 bg-background flex h-16 shrink-0 items-center justify-between gap-2 mx-4">
-                    <div className="flex items-center gap-2">
-                        <SidebarTrigger className="-ml-1" />
-                        <Separator
-                        orientation="vertical"
-                        className="mr-2 data-[orientation=vertical]:h-4"
-                        />
-                        <h1 className="font-semibold text-lg">{title}</h1>
-
-                    </div>
-                    {!hideAddButton && 
-                        <div className="flex gap-5 justify-between">
-                            {!hideSearchBar &&
-                                <div className="flex relative items-center my-auto">
-                                    <Search className="absolute mx-2" size={20}/>
-                                    <Input  
-                                        className="pl-10" 
-                                        placeholder="Search"
-                                        value={searchQuery}
-                                        onChange={(e) => setSearchQuery(e.target.value)}
-                                    />
-                                </div>
-                            }
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button className="bg-accent-brand-muted hover:bg-accent-brand cursor-pointer">
-                                        <Plus className="text-white"/>
-                                        <span className="text-white">Add</span>
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent>
-                                    <Link 
-                                        to="/vault/item/new/login"
-                                        state={{ backgroundLocation: location }}
-                                    >
-                                        <DropdownMenuItem className="cursor-pointer">Login</DropdownMenuItem>
-                                    </Link>
-                                    <Link 
-                                        to="/vault/item/new/secure_note"
-                                        state={{ backgroundLocation: location }}
-                                        >
-                                        <DropdownMenuItem className="cursor-pointer">Secure Note</DropdownMenuItem>
-                                    </Link>
-                                    <Link 
-                                        to="/vault/new/folder"
-                                        state={{ backgroundLocation: location }}
-                                        >
-                                        <DropdownMenuItem className="cursor-pointer">Folder</DropdownMenuItem>
-                                    </Link>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
-                    }
-                </header>
-                <div className="p-4">
-                    <Outlet context={{ searchQuery }} />
-                </div>
-            </SidebarInset> */}
             <SidebarInset>
                 <VaultHeader title={title}  hideSearchBar={hideSearchBar} searchQuery={searchQuery} setSearchQuery={setSearchQuery} sidebarTrigger={<SidebarTrigger className="-ml-1" />} />
                 <div className="p-4">
