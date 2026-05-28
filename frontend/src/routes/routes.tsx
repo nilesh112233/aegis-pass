@@ -21,7 +21,6 @@ import FolderDetailPage from "@/pages/folder-detail-page";
 import AddRemoveFolderItemPage from "@/pages/add-remove-folder-items";
 import Notification from "@/components/notification";
 import NotFoundPage from "@/pages/not-found-page";
-import { Divide } from "lucide-react";
 import LandingPage from "@/pages/landing-page";
 
 
