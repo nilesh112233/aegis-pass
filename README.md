@@ -7,8 +7,10 @@ A zero-knowledge password manager built as a full-stack portfolio project. Aegis
 All encryption and decryption happens client-side inside a Web Worker. The server stores only ciphertext. Your master password never leaves your device.
  
 ---
+
 ## Live Demo 🔗 https://aegispass.onrender.com
 
+---
 
 ## Tech Stack
  
@@ -22,7 +24,8 @@ All encryption and decryption happens client-side inside a Web Worker. The serve
 **Backend**
 - Django 5 + Django REST Framework
 - SimpleJWT with token rotation and blacklisting
-- PostgreSQL
+- SQLite (development)
+- PostgreSQL (production-ready)
 - `django-cors-headers`
 
 ---
@@ -102,7 +105,7 @@ aegis-pass/
  
 - Node.js 20+
 - Python 3.12+
-- PostgreSQL
+- PostgreSQL (optional, for production setup)
 
 ### Backend Setup
  
@@ -132,8 +135,8 @@ npm run dev
 **Backend `.env`**
 ```
 SECRET_KEY=your-django-secret-key
-DATABASE_URL=postgres://user:password@localhost:5432/aegispass
-COOKIE_SECURE=False            # set True in production
+DATABASE_URL=postgres://user:password@localhost:5432/aegispass      # Optional PostgreSQL configuration in production
+COOKIE_SECURE=False                                                 # set True in production
 CORS_ALLOWED_ORIGINS=http://localhost:5173
 ```
  
@@ -141,6 +144,12 @@ CORS_ALLOWED_ORIGINS=http://localhost:5173
 ```
 VITE_API_URL=http://localhost:8000
 ```
+
+## Database Configuration
+
+The project uses SQLite by default for local development to simplify setup.
+
+PostgreSQL is supported and recommended for production deployments.
  
 ---
  
@@ -172,6 +181,8 @@ VITE_API_URL=http://localhost:8000
     style="border-radius: 12px;"
   />
 </p>
+
+---
 
 ## Key Technical Decisions
  
