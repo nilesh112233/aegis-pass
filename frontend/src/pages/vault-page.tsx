@@ -58,7 +58,6 @@ export default function VaultPage() {
 
             try {
                 const data = await client.CryptoService.getItems();
-                console.log(data);
                 setItems(data ?? null);
                 const folders = await client.CryptoService.getFolders();
                 setNoOfFolders(folders.length)
@@ -74,11 +73,6 @@ export default function VaultPage() {
 
     async function analyseVault() {
         const report = await client.CryptoService.analyseVault();
-        console.log(report)
-        console.log(report.total_passwords)
-        console.log(report.weak_passwords)
-        console.log(report.reused_passwords)
-        console.log(report.recently_added)
         const reportMeta = {
             total_passwords: report.total_passwords,
             weak_passwords: report.weak_passwords.length,

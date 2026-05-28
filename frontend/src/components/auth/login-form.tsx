@@ -63,7 +63,6 @@ export function LoginForm({
         setIsLoading(true)
         try {
             const res = await client.AuthService.login(data.email, data.masterPassword);
-            console.log(res);
             // toast.success("Welcome back.");
             toastQueue.push("Logged in successfully.", "success");
             navigate("/vault");

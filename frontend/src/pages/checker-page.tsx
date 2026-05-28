@@ -14,7 +14,6 @@ function StrengthIcon({ score }: { score: number }) {
 
 
 const CheckerPage = () => {
-    console.log(Date.now())
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
 

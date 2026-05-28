@@ -43,7 +43,6 @@ export default function VaultLoginsItemPage() {
             setIsLoading(true);
             try {
                 const data = await client.CryptoService.getItems();
-                console.log(data);
                 setItems(data?.filter((item) => (item.item_type === "login")) ?? null)
             } catch (error: any) {
                 console.log(error)

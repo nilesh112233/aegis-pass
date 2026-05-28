@@ -56,9 +56,6 @@ export default function AddRemoveFolderItemPage() {
         }, [items, searchQuery])
 
     useEffect(() => {
-        console.log("hello")
-        console.log(id)
-        // if (location.state?.backgroundLocation) return console.log("this got fired");
         async function fetchData() {
             setIsLoading(true)
             try {

@@ -82,7 +82,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
             case "AUTH_STATUS_CHECK": {
                 const token = SecureStorage.getAccessToken();
-                // console.log(`token = ${token}`)
                 self.postMessage({
                     id: message.id,
                     type: "SUCCESS",
@@ -116,19 +115,14 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 const { email, password } = message.payload;
                 const preFlight = await fetchAuthApi("preflight/", { email });
                 const iterations = preFlight.kdf_iterations;
-                console.log(iterations)
                 const { authToken, encryptionKey } = await deriveKeys(email, password, iterations);
-                console.log(authToken)
                 const data = await fetchAuthApi("login/", {
                     email,
                     auth_token: authToken,
                 });
                 tokenManager.setAccessToken(data.access);
-                // console.log(data.user);
                 SecureStorage.setUser(data.user);
-                // console.log(SecureStorage.getUser());
                 SecureStorage.setEncryptionKey(encryptionKey);
-                // console.log(data.user)
 
                 // SecureStorage.setSessionTimeoutLimit(data.user.inactivity_timeout);
                 tokenManager.updateSessionTimeoutLimit(data.user.inactivity_timeout);
@@ -166,7 +160,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
             case "AUTH_DELETE_ACCOUNT": {
                 const { password } = message.payload;
-                console.log(password);
                 const email = SecureStorage.getUser()?.email;
                 
                 const preflight = await fetchAuthApi("preflight/", { email });
@@ -279,7 +272,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 // CACHE LOGIC: look for vaultItemsListCache
                 // if it exists return that cache
                 const cached = SecureStorage.getItemListCache();
-                // console.log(cached)
                 if (cached) {
                     self.postMessage({
                         id: message.id,
@@ -289,7 +281,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                     break;
                 }
 
-                // console.log("code still running")
 
                 const raw = await fetchVaultApi("items/", "GET");
                 
@@ -347,7 +338,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                     created_at: raw.created_at,
                     updated_at: raw.updated_at,
                 };
-                console.log(decrypted)
 
                 // Store the decrypted item in vaultItemDetailCache in SecureStorage
                 SecureStorage.setItemDetailCache(id, decrypted);
@@ -363,14 +353,7 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
             case "VAULT_CREATE_ITEM": {
                 const { item_type, item_meta_preview, item_data } = message.payload;
-                // console.log(message)
-                // console.log(item_type)
-                // console.log(item_meta_preview)
-                // console.log(item_data)
                 const { folder, isFavourite, ...item_meta} = item_meta_preview;
-                console.log(folder)
-                // console.log(isFavourite)
-                // console.log(item_meta)
 
                 const encrypted_item_meta_preview = await encrypt(JSON.stringify(item_meta));
                 const encrypted_item_data = await encrypt(JSON.stringify(item_data));
@@ -387,19 +370,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
                 SecureStorage.invalidateListCache();
 
-
-                // Debug
-                // console.log("ENCRYPTED ITEM")
-                // console.log(`item_type= ${item_type}`)
-                // console.log(`encrypted_item_meta_preview.ciphertext = ${encrypted_item_meta_preview.ciphertext}`)
-                // console.log(`encrypted_item_meta_preview.iv = ${encrypted_item_meta_preview.iv}`)
-                // console.log(`encrypted_item_data.ciphertext = ${encrypted_item_data.ciphertext}`)
-                // console.log(`encrypted_item_data.iv = ${encrypted_item_data.iv}`)
-                
-                // console.log(`DECRYPTING THE SAME ITEM`)
-                // console.log("item_meta_preview: ", JSON.parse(await decrypt(encrypted_item_meta_preview.ciphertext, encrypted_item_meta_preview.iv)))
-                // console.log("item_data: ", JSON.parse(await decrypt(encrypted_item_data.ciphertext, encrypted_item_data.iv)))
-
                 // Invalidate Cache vaultItemListCache in securestorage
 
                 self.postMessage({
@@ -413,11 +383,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
             case "VAULT_UPDATE_ITEM": {
                 const { id, item_type, item_meta_preview, item_data } = message.payload;
                 
-                // console.log(message)
-                // console.log(id)
-                // console.log(item_type)
-                // console.log(item_meta_preview)
-                // console.log(item_data)
                 const { folder, isFavourite, ...item_meta} = item_meta_preview;
 
 
@@ -437,17 +402,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
                 SecureStorage.invalidateDetailCache(id);
                 SecureStorage.invalidateListCache();
                 SecureStorage.clearFolderCache();
-
-                // console.log("ENCRYPTED ITEM")
-                // console.log(`item_type= ${item_type}`)
-                // console.log(`encrypted_item_meta_preview.ciphertext = ${encrypted_item_meta_preview.ciphertext}`)
-                // console.log(`encrypted_item_meta_preview.iv = ${encrypted_item_meta_preview.iv}`)
-                // console.log(`encrypted_item_data.ciphertext = ${encrypted_item_data.ciphertext}`)
-                // console.log(`encrypted_item_data.iv = ${encrypted_item_data.iv}`)
-                
-                // console.log(`DECRYPTING THE SAME ITEM`)
-                // console.log("item_meta_preview: ", JSON.parse(await decrypt(encrypted_item_meta_preview.ciphertext, encrypted_item_meta_preview.iv)))
-                // console.log("item_data: ", JSON.parse(await decrypt(encrypted_item_data.ciphertext, encrypted_item_data.iv)))
 
                 // Invalidate both cache (in VaultItemDetailCache we can update by the "id" as well)
 
@@ -816,7 +770,6 @@ self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
 
             case "VAULT_REMOVE_FROM_FOLDER": {
                 const { item_ids } = message.payload;
-                console.log(item_ids)
 
                 await fetchVaultApi("folders/remove/", "PATCH", { item_ids });
 

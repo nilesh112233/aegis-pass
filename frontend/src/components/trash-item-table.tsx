@@ -32,7 +32,6 @@ type Props = {
 };
 
 export default function TrashItemTable({ items, onRestore, onPermanentDelete }: Props) {
-    console.log(items)
     return (
         <Table>
             <TableHeader>

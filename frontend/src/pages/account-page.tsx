@@ -2,21 +2,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-// import {
-//     AlertDialog,
-//     AlertDialogAction,
-//     AlertDialogCancel,
-//     AlertDialogContent,
-//     AlertDialogDescription,
-//     AlertDialogFooter,
-//     AlertDialogHeader,
-//     AlertDialogTitle,
-//     AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
 import { Mail, CalendarDays, KeyRound, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useWorkerService } from "@/context/worker-provider";
-// import { useNavigate } from "react-router-dom";
 import { DeleteAccountModal } from "@/components/auth/delete-account-modal";
 
 type AccountInfo = {
@@ -27,10 +15,8 @@ type AccountInfo = {
 
 export default function AccountPage() {
     const { client } = useWorkerService();
-    // const navigate = useNavigate();
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [account, setAccount] = useState<AccountInfo | null>(null);
-    // const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         client.AuthService.user()
@@ -38,19 +24,6 @@ export default function AccountPage() {
             .catch(console.error);
         
     }, [client]);
-
-    // async function handleDeleteAccount() {
-    //     setIsDeleting(true);
-    //     try {
-    //         // await client.AuthService.deleteAccount();
-    //         console.log("deleteaccount flow")
-    //         navigate("/login", { replace: true });
-    //     } catch (error) {
-    //         console.error(error);
-    //     } finally {
-    //         setIsDeleting(false);
-    //     }
-    // }
 
     const joinedDate = account?.created_at
         ? new Date(account.created_at).toLocaleDateString("en-US", {
@@ -125,41 +98,7 @@ export default function AccountPage() {
                                 open={showDeleteModal}
                                 onClose={() => setShowDeleteModal(false)}
                             />
-                            {/* <AlertDialog>
-                                <AlertDialogTrigger asChild>
-                                    <Button
-                                        variant="destructive"
-                                        size="sm"
-                                        className="ml-4 shrink-0"
-                                    >
-                                        <Trash2 size={14} className="mr-1.5" />
-                                        Delete
-                                    </Button>
-                                </AlertDialogTrigger>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>Delete your account?</AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            This will permanently delete your account and every vault
-                                            item stored in it. Your encrypted data cannot be recovered.
-                                            This action is irreversible.
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction
-                                            variant="destructive"
-                                            onClick={handleDeleteAccount}
-                                            disabled={isDeleting}
-                                        >
-                                            {isDeleting ? "Deleting…" : "Yes, delete everything"}
-                                        </AlertDialogAction>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialog> */}
 
-
-                            
                         </div>
                     </CardContent>
                 </Card>

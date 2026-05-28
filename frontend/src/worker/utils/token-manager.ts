@@ -44,7 +44,6 @@ class TokenManager {
         this.isSessionActive = true;
         this.scheduleRefresh(token);
         // this.resetInactivityTimer();  // THIS MIGHT CAUSE ERROR
-        console.log(`ACCESSTOKEN @${new Date().toLocaleString('en-US')} has been set to ${token}`)
     }
 
     clearAccessToken(): void {
@@ -89,7 +88,6 @@ class TokenManager {
             // Make an auth request to backend for refreshing the access token
             // const res = await authApiClient.post("auth/token/refresh");
             const res = await fetchAuthApi("refresh/")
-            console.log(res)
             if (!res) {
                 SecureStorage.clearAll();
                 return null;
@@ -103,7 +101,7 @@ class TokenManager {
 
             // Notify all the refresh accessToken subscriber
             this.refreshSubscribers.forEach((callback) => callback(newAccessToken));
-            console.log("ACCESSTOKEN REFRESHED");
+            // console.log("ACCESSTOKEN REFRESHED");
             return newAccessToken;
         } catch {
             SecureStorage.clearAll();
@@ -117,7 +115,6 @@ class TokenManager {
     recordActivity(): void {
         if (!this.isSessionActive) return;
         this.lastActivityTime = Date.now();
-        console.log(`last activity @${new Date(this.lastActivityTime).toLocaleString('en-US')}, USER WILL LOGGED OUT - ${SecureStorage.getSessionTimeoutLimit()} MINUTES FROM NOW `)
         this.resetInactivityTimer();
     }
 
@@ -142,20 +139,16 @@ class TokenManager {
     private resetInactivityTimer(): void {
         if (!this.isSessionActive) return;
         if(this.inactivityTimout) clearTimeout(this.inactivityTimout);
-        console.log(SecureStorage.getSessionTimeoutLimit(), "minutes")
-        console.log("current time is", new Date().toLocaleString('en-US'))
 
         this.inactivityTimout = setTimeout(() => {
             this.forceLogout();
         }, SecureStorage.getSessionTimeoutLimit()*60*1000)
-        console.log(this.inactivityTimout)
     }
 
     private forceLogout(): void {
         SecureStorage.clearAll();
         this.clearAccessToken();
 
-        console.log("forceLogout called.")
         self.postMessage({ type: "FORCE_LOGOUT" });
     }
 

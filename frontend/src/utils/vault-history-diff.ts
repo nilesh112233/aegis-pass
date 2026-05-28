@@ -53,8 +53,6 @@ export function buildHistoryDiff(entries: any[]): HistoryEntry[] {
             : null; // oldest entry — no previous to compare against
 
         const changes: FieldChange[] = [];
-        console.log(current)
-        console.log(previous)
 
         for (const [field, currentValue] of Object.entries(current)) {
             const previousValue = previous?.[field] ?? "";

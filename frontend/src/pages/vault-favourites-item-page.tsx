@@ -42,8 +42,6 @@ export default function VaultFavouritesItemPage() {
             setIsLoading(true)
             try {
                 const data = await client.CryptoService.getItems();
-                // console.log(data);
-                // setItems(data ?? null)
                 setItems(data.filter((item) => (item.is_favourite === true)) ?? null)
             } catch (error: any) {
                 console.log(error)

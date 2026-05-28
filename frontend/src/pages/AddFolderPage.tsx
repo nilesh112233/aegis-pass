@@ -76,7 +76,6 @@ export default function AddFolderPage() {
 
     async function onSubmit(data: folderFormValidatedData) {
         setIsLoading(true);
-        console.log(data);
 
         try {
             // const serializedData = data.name;
@@ -86,7 +85,6 @@ export default function AddFolderPage() {
                 toastQueue.push(`Folder created successfully.`, "success")
                 closeModal();
             } else if (mode === "edit" && id) {
-                console.log("edit mode")
                 await client.CryptoService.updateFolder(id, data);
                 toastQueue.push("Folder name updated successfully.", "success")
                 closeModal();

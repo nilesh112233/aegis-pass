@@ -67,7 +67,6 @@ export default function ItemTableBase({ data, checkBoxColumn=false, compactTable
 
     // sync when parent passes new data (e.g. after page refetch)
     useEffect(() => {
-        console.log(location)
         setItems(data);
     }, [data]);
 

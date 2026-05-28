@@ -27,7 +27,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useWorkerService } from "@/context/worker-provider"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export function NavUser({
   user,
@@ -100,10 +100,17 @@ export function NavUser({
                 <UserCog />
                 Account Settings
               </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CircleQuestionMark />
-                Get Help
-              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                    href="https://github.com/nilesh112233/aegis-pass.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                >
+                    <CircleQuestionMark className="w-4 h-4" />
+                    Get Help
+                </a>
+              </DropdownMenuItem> 
               <DropdownMenuItem onClick={() => navigate("/notification")}>
                 <BellDot />
                 Notifications

@@ -9,7 +9,6 @@ import { toastQueue } from "@/utils/toast-queue";
 
 
 const GeneratorPage = () => {
-    console.log(Date.now())
     const [generatedPassword, setGeneratedPassword] = useState<string>("");
     const [checkOptions, setCheckOptions] = useState({
         uppercase: true,

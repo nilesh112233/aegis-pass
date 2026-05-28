@@ -24,7 +24,6 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
         .catch(() => setAuthState("unauthenticated"));
 
         client.onForceLogout = () => {
-            console.log("AT PROTECTED ROUTE onForceLogout called.")
             setAuthState("unauthenticated");
             return;
         };

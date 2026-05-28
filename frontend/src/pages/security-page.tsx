@@ -321,7 +321,7 @@ function ChangeMasterPasswordModal({
             //     data.currentPassword,
             //     data.newPassword,
             // );
-            console.log("change master password flow", data)
+            console.log("change master password flow - not working yet.", data)
             form.reset();
             onClose();
             // force re-login — new key derived, old session invalid

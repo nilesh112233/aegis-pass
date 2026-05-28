@@ -419,21 +419,6 @@ export default function LandingPage() {
               </Link>
             </div>
 
-             {/* <div className="mt-10 flex justify-center gap-4 flex-wrap">
-               <a
-                href="/signup"
-                className="h-14 px-8 rounded-2xl bg-accent-brand-muted text-white hover:opacity-90 transition flex items-center font-medium"
-              >
-                Create Account
-              </a>
-
-              <a
-                href="/login"
-                className="h-14 px-8 rounded-2xl border border-border bg-bg-subtle hover:bg-bg-elevated transition flex items-center"
-              >
-                Login
-              </a>
-            </div> */}
           </div>
         </div>
       </section>
@@ -452,7 +437,14 @@ export default function LandingPage() {
             <div className="flex gap-6 text-fg-muted">
                 <a href="#">Privacy</a>
                 <a href="#security">Security</a>
-                <a href="#">Support</a>
+                <a
+                    href="https://github.com/nilesh112233/aegis-pass.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                >
+                    Support
+                </a>
             </div>
         </div>
       </footer>

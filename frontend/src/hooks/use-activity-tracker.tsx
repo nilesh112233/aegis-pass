@@ -15,7 +15,6 @@ export function useActivityTracker() {
             if (timeSinceLastSent < THROTTLE_MS) return;
 
             lastSentRef.current = now;
-            console.log("recordActivity event sent to worker.")
             client.AuthService.recordActivity();
         }
 

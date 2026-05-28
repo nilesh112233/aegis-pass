@@ -44,7 +44,6 @@ export default function VaultSecureNotesItemPage() {
             setIsLoading(true)
             try {
                 const data = await client.CryptoService.getItems();
-                console.log(data);
                 setItems(data?.filter((item) => (item.item_type === "secure_note")) ?? null)
             } catch (error: any) {
                 console.log(error)
@@ -54,8 +53,6 @@ export default function VaultSecureNotesItemPage() {
         }
 
         fetchVault();
-        console.log(displayItems)
-        console.log("0000000")
     }, [client, location.key])
     
     if (isLoading) {

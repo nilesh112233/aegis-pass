@@ -1,3 +1,5 @@
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green?style=for-the-badge)](https://aegispass.onrender.com)
+
 # Aegis-Pass
  
 A zero-knowledge password manager built as a full-stack portfolio project. Aegis-Pass is designed around one core principle: the server should never be able to read your passwords — not even in theory.
@@ -5,6 +7,8 @@ A zero-knowledge password manager built as a full-stack portfolio project. Aegis
 All encryption and decryption happens client-side inside a Web Worker. The server stores only ciphertext. Your master password never leaves your device.
  
 ---
+## Live Demo 🔗 https://aegispass.onrender.com
+
 
 ## Tech Stack
  
@@ -147,9 +151,27 @@ VITE_API_URL=http://localhost:8000
 ---
 
 ## Screenshots
-![aegis-pass dashboard-display-preview](frontend/public/dashboard-display.png)
-![passowrd-generator-preview](frontend/public/password-generator-demo-dark.png)
+<p align="center">
 
+  <img 
+    src="./frontend/public/dashboard-display.png"
+    alt="Dashboard Preview"
+    width="1000"
+    style="border-radius: 12px;"
+  />
+  <img 
+    src="./frontend/public/landing-page-preview.png"
+    alt="Landing Page Preview"
+    width="244"
+    style="border-radius: 12px;"
+  />
+  <img 
+    src="./frontend/public/password-generator-demo-dark.png"
+    alt="Password Generator Preview"
+    width="400"
+    style="border-radius: 12px;"
+  />
+</p>
 
 ## Key Technical Decisions
  

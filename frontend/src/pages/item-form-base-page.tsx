@@ -72,7 +72,6 @@ export const ItemFormBasePage = () => {
     useEffect(() => {
         // if (mode === "create" || !id) return;
         if (mode === "create" || mode === "history" || !id) return;
-        console.log(location.state)
         
         setIsLoading(true)
         async function fetchItemDetail(id: any) {
@@ -97,13 +96,9 @@ export const ItemFormBasePage = () => {
 
     async function onSubmit(data: ItemFormValidatedData) {
         setIsLoading(true);
-        // console.log(data);
 
         try {
             const serializedData = config.build_payload(data);
-            // console.log(serializedData)
-            // console.log(data)
-            // console.log(item)
             
             if (mode === "create") {
                 await client.CryptoService.createItem(serializedData);
@@ -129,9 +124,6 @@ export const ItemFormBasePage = () => {
                     },
                     {} as Partial<typeof data>
                 );
-                // console.log(updatedFields)
-                // console.log(Object.keys(updatedFields))
-                // console.log(Object.keys(updatedFields) )
 
                 const updatedKeys = Object.keys(updatedFields)
                 const patchRouteKeys = ["isFavourite", "folder"]
@@ -139,10 +131,8 @@ export const ItemFormBasePage = () => {
                 const diff = updatedKeys.filter(item => !patchRouteKeys.includes(item))
                 
                 if (diff.length !== 0) {
-                    console.log("put request whole update + history")
                     await client.CryptoService.updateItem(id, serializedData);
                 } else {
-                    console.log("patch request")
                     await client.CryptoService.patchItem(id, updatedFields as PatchItem);
                 }
                 toastQueue.push(`${config.label} updated successfully.`, "success")
