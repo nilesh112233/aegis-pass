@@ -62,8 +62,7 @@ export function LoginForm({
     async function onSubmit(data: LoginFormData) {
         setIsLoading(true)
         try {
-            const res = await client.AuthService.login(data.email, data.masterPassword);
-            // toast.success("Welcome back.");
+            await client.AuthService.login(data.email, data.masterPassword);
             toastQueue.push("Logged in successfully.", "success");
             navigate("/vault");
         } catch (error: any) {
