@@ -180,9 +180,9 @@ export default function ItemTableBase({ data, checkBoxColumn=false, compactTable
                             
                             {!compactTable &&
                                 <TableCell className="hidden sm:table-cell">
-                                    <Button variant="ghost" className="hover:bg-transparent p-0 m-0 cursor-pointer" onClick={() => toggleIsFavourite(item.id)}>
+                                    <Button variant="ghost" className=" p-0 m-0 cursor-pointer" onClick={() => toggleIsFavourite(item.id)}>
                                         {item.is_favourite ? 
-                                            <Star className="text-accent-brand-muted"/> : <Star className="text-fg-muted hover:text-accent-brand-muted"/>
+                                            <Star className="text-accent-brand-muted fill-accent-brand-muted/70"/> : <Star className="text-fg-muted hover:text-accent-brand-muted "/>
                                         }
                                     </Button>
                                 </TableCell>

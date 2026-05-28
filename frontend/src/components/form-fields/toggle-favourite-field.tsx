@@ -36,7 +36,7 @@ export const ToggleFavouriteField = ({
                                 size={16}
                                 className={
                                 field.value
-                                    ? "text-accent-brand"
+                                    ? "text-accent-brand fill-accent-brand-muted"
                                     : "text-fg-muted"
                                 }
                             />
@@ -52,7 +52,7 @@ export const ToggleFavouriteField = ({
                                     size={16}
                                     className={
                                     field.value
-                                        ? "text-accent-brand-muted"
+                                        ? "text-accent-brand-muted fill-accent-brand-muted/70"
                                         : "text-fg-muted"
                                     }
                                 />

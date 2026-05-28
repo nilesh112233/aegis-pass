@@ -20,6 +20,9 @@ import { useState } from "react"
 import { useWorkerService } from "@/context/worker-provider";
 import { Spinner } from "../ui/spinner"
 import { toastQueue } from "@/utils/toast-queue"
+import AegisPassShield from "../ui/aegis-pass-shield"
+import { motion } from "framer-motion";
+
 
 const SignupFormSchema = z
     .object({
@@ -78,6 +81,18 @@ export function SignupForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+        >
+        <div className="flex items-center gap-3 absolute top-5 left-5">
+            <AegisPassShield />
+
+            <span className="text-2xl font-semibold tracking-tight">
+                Aegis-Pass
+            </span>
+        </div>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
           <form id="signup-form" onSubmit={form.handleSubmit(onSubmit)}  className="p-6 md:p-8">
@@ -219,7 +234,7 @@ export function SignupForm({
           </div>
         </CardContent>
       </Card>
-      {/* <Toaster position="bottom-right" /> */}
+      </motion.div>
     </div>
   )
 }

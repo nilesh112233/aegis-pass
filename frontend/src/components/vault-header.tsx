@@ -39,40 +39,18 @@ export default function VaultHeader({
     const searchInputRef = useRef<HTMLInputElement | null>(null);
     
     useEffect(() => {
-        setMobileSearchOpen(false);
-    }, [location.pathname]);
-
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent) {
-            if (
-                searchContainerRef.current &&
-                !searchContainerRef.current.contains(event.target as Node)
-            ) {
-                setMobileSearchOpen(false);
-            }
-        }
-
         if (mobileSearchOpen) {
             setTimeout(() => {
                 searchInputRef.current?.focus();
             }, 0);
-            document.addEventListener("mousedown", handleClickOutside);
         }
-
-        return () => {
-            document.removeEventListener(
-                "mousedown",
-                handleClickOutside
-            );
-        };
     }, [mobileSearchOpen]);
-
 
 
     return (
         <header 
             ref={searchContainerRef}
-            className="border-b px-4 py-3 flex items-center justify-between gap-3"
+            className=" px-4 py-3 flex items-center justify-between gap-3"
         >
 
             {/* LEFT SECTION */}
@@ -118,7 +96,10 @@ export default function VaultHeader({
                         <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => setMobileSearchOpen(false)}
+                            onClick={() => {
+                                setSearchQuery("")
+                                setMobileSearchOpen(false)
+                            }}
                         >
                             <X size={20} />
                         </Button>
@@ -184,18 +165,24 @@ export default function VaultHeader({
                             </DropdownMenuTrigger>
 
                             <DropdownMenuContent>
-
-                                <Link
+                                <Link 
                                     to="/vault/item/new/login"
-                                    state={{
-                                        backgroundLocation: location,
-                                    }}
+                                    state={{ backgroundLocation: location }}
                                 >
-                                    <DropdownMenuItem className="cursor-pointer">
-                                        Login
-                                    </DropdownMenuItem>
+                                    <DropdownMenuItem className="cursor-pointer">Login</DropdownMenuItem>
                                 </Link>
-
+                                <Link 
+                                    to="/vault/item/new/secure_note"
+                                    state={{ backgroundLocation: location }}
+                                    >
+                                    <DropdownMenuItem className="cursor-pointer">Secure Note</DropdownMenuItem>
+                                </Link>
+                                <Link 
+                                    to="/vault/new/folder"
+                                    state={{ backgroundLocation: location }}
+                                    >
+                                    <DropdownMenuItem className="cursor-pointer">Folder</DropdownMenuItem>
+                                </Link>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </>

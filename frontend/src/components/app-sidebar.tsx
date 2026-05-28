@@ -133,8 +133,8 @@ export function AppSidebar() {
             <SidebarHeader>
                 <div className="flex items-center gap-2 p-0 h-10">
                     <AegisPassShield className="shrink-0" />
-                    <span className="text-2xl font-bold tracking-tight mb-0.5 whitespace-nowrap transition-all duration-200 opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 overflow-hidden">
-                    Aegis-Pass
+                    <span className="text-2xl font-bold tracking-wide mb-0.5 whitespace-nowrap transition-all duration-200 opacity-100 group-data-[collapsible=icon]:opacity-0 group-data-[collapsible=icon]:w-0 overflow-hidden">
+                        <span className="text-accent-brand/90">Aegis-Pass</span>
                     </span>
                 </div>
             </SidebarHeader>

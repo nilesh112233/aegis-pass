@@ -20,6 +20,8 @@ import { useState } from "react"
 import { useWorkerService } from "@/context/worker-provider";
 import { Spinner } from "../ui/spinner"
 import { toastQueue } from "@/utils/toast-queue"
+import AegisPassShield from "../ui/aegis-pass-shield"
+import { motion } from "framer-motion";
 
 
 
@@ -76,111 +78,127 @@ export function LoginForm({
     };
     
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
-          <form id="login-form" onSubmit={form.handleSubmit(onSubmit)} className="p-6 md:p-8">
-            <FieldGroup>
-              <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
-                <p className="text-sm text-balance text-muted-foreground">
-                  Login to your Aegis-Pass account
-                </p>
-              </div>
-              <Controller
-                name="email"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
-                        <div className="relative">
-                            <Input 
-                                {...field}
-                                id="login-form-email"
-                                aria-invalid={fieldState.invalid}
-                                placeholder="m@example.com"
-                                autoFocus={true}
-                                autoComplete="off"
-                            />
-                            {field.value && (
-                                <button
-                                    type="button"
-                                    onMouseDown={(e) => e.preventDefault()}
-                                    onClick={() => form.setValue("email", "")}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                                >
-                                    <X size={16} />
-                                </button>
-                            )}
-                        </div>
-                        {fieldState.invalid && (
-                            <FieldError errors={[fieldState.error]} />
-                        )}
-                    </Field>
-                )}
-              />
-              <Controller 
-                name="masterPassword"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                    <Field data-invalid={fieldState.invalid}>
-                        <FieldLabel htmlFor="login-form-masterPassword">Master Password</FieldLabel>
-                        <div className="relative">
-                            <Input
-                                {...field}
-                                id="login-form-masterPassword"
-                                className="pr-10"
-                                type={showMasterPassword ? "text" : "password"}
-                                aria-invalid={fieldState.invalid}
-                                placeholder="••••••••"
-                                autoComplete="off"
-                            />
-                            <div className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground mt-0.5">
+    <div>
+        <div className="flex items-center gap-3 absolute top-5 left-5">
+            <AegisPassShield />
+
+            <span className="text-2xl font-semibold tracking-tight">
+                Aegis-Pass
+            </span>
+        </div>
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+        >
+
+        <div className={cn("flex flex-col gap-6", className)} {...props}>
+        <Card className="overflow-hidden p-0">
+            <CardContent className="grid p-0 md:grid-cols-2">
+            <form id="login-form" onSubmit={form.handleSubmit(onSubmit)} className="p-6 md:p-8">
+                <FieldGroup>
+                <div className="flex flex-col items-center gap-2 text-center">
+                    <h1 className="text-2xl font-bold">Welcome back</h1>
+                    <p className="text-sm text-balance text-muted-foreground">
+                    Login to your Aegis-Pass account
+                    </p>
+                </div>
+                <Controller
+                    name="email"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="login-form-email">Email</FieldLabel>
+                            <div className="relative">
+                                <Input 
+                                    {...field}
+                                    id="login-form-email"
+                                    aria-invalid={fieldState.invalid}
+                                    placeholder="m@example.com"
+                                    autoFocus={true}
+                                    autoComplete="off"
+                                />
                                 {field.value && (
                                     <button
                                         type="button"
                                         onMouseDown={(e) => e.preventDefault()}
-                                        onClick={() => form.setValue("masterPassword", "")}
-                                        className="text-muted-foreground hover:text-foreground"
+                                        onClick={() => form.setValue("email", "")}
+                                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                                     >
                                         <X size={16} />
                                     </button>
                                 )}
-
-                                <button 
-                                    type="button"
-                                    onMouseDown={(e) => e.preventDefault()}
-                                    onClick={() => setShowMasterPassword(!showMasterPassword)}
-                                    className="text-muted-foreground hover:text-foreground mx-1"
-                                >
-                                    {showMasterPassword ? <EyeOff size={16} /> : <Eye size={16} />}
-                                </button>
                             </div>
-                        </div>
-                        {fieldState.invalid && (
-                            <FieldError errors={[fieldState.error]} />
-                        )}
-                    </Field>
-                )}
-              />
-              <Field>
-                <FieldDescription> </FieldDescription>
-                <Button type="submit" form="login-form" className="mt-24">
-                    {isLoading && <Spinner data-icon="inline-start" />}
-                    Login
-                </Button>
-              </Field>
-              <FieldDescription className="text-center">
-                Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
-              </FieldDescription>
-            </FieldGroup>
-          </form>
-          <div className="relative hidden md:block">
-            <VaultIllustration />
-          </div>
-        </CardContent>
-      </Card>
-      {/* <Toaster position="bottom-right" /> */}
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
+                <Controller 
+                    name="masterPassword"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldLabel htmlFor="login-form-masterPassword">Master Password</FieldLabel>
+                            <div className="relative">
+                                <Input
+                                    {...field}
+                                    id="login-form-masterPassword"
+                                    className="pr-10"
+                                    type={showMasterPassword ? "text" : "password"}
+                                    aria-invalid={fieldState.invalid}
+                                    placeholder="••••••••"
+                                    autoComplete="off"
+                                />
+                                <div className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground mt-0.5">
+                                    {field.value && (
+                                        <button
+                                            type="button"
+                                            onMouseDown={(e) => e.preventDefault()}
+                                            onClick={() => form.setValue("masterPassword", "")}
+                                            className="text-muted-foreground hover:text-foreground"
+                                        >
+                                            <X size={16} />
+                                        </button>
+                                    )}
+
+                                    <button 
+                                        type="button"
+                                        onMouseDown={(e) => e.preventDefault()}
+                                        onClick={() => setShowMasterPassword(!showMasterPassword)}
+                                        className="text-muted-foreground hover:text-foreground mx-1"
+                                    >
+                                        {showMasterPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                    </button>
+                                </div>
+                            </div>
+                            {fieldState.invalid && (
+                                <FieldError errors={[fieldState.error]} />
+                            )}
+                        </Field>
+                    )}
+                />
+                <Field>
+                    <FieldDescription> </FieldDescription>
+                    <Button type="submit" form="login-form" className="mt-24">
+                        {isLoading && <Spinner data-icon="inline-start" />}
+                        Login
+                    </Button>
+                </Field>
+                <FieldDescription className="text-center">
+                    Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+                </FieldDescription>
+                </FieldGroup>
+            </form>
+            <div className="relative hidden md:block">
+                <VaultIllustration />
+            </div>
+            </CardContent>
+        </Card>
+        {/* <Toaster position="bottom-right" /> */}
+        </div>
+        </motion.div>
     </div>
   )
 }

@@ -39,6 +39,7 @@ export default function TrashPage() {
     useEffect(() => { load(); }, [client]);
 
     async function handleRestore(id: string) {
+        
         await client.CryptoService.restoreItem(id);
         setItems(prev => prev?.filter(i => i.id !== id) ?? null);
         toastQueue.push("Item restored")

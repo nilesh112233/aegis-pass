@@ -21,6 +21,8 @@ import FolderDetailPage from "@/pages/folder-detail-page";
 import AddRemoveFolderItemPage from "@/pages/add-remove-folder-items";
 import Notification from "@/components/notification";
 import NotFoundPage from "@/pages/not-found-page";
+import { Divide } from "lucide-react";
+import LandingPage from "@/pages/landing-page";
 
 
 const AppRoutes = () => {
@@ -30,6 +32,14 @@ const AppRoutes = () => {
     return (
         <>
             <Routes location={state?.backgroundLocation || location}>
+                <Route
+                    path="/"
+                    element={
+                        <PublicOnlyRoute>
+                            <LandingPage />
+                        </PublicOnlyRoute>
+                    }
+                />
                 <Route 
                     path="/signup" 
                     element={ 

@@ -70,8 +70,6 @@ class UserSession(models.Model):
         return f"{self.user.email} — {self.device_hint} ({self.ip_address})"
     
     
-    # backend/accounts/models.py
-
 class UserPreferences(models.Model):
 
     class InactivityTimeout(models.IntegerChoices):
