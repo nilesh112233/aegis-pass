@@ -43,11 +43,11 @@ class RegisterSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         auth_token = validated_data.pop("auth_token")
-        print(validated_data)
+        # print(validated_data)
         user = User(**validated_data)
         user.set_password(auth_token)
-        print(user.email)
-        print(user.password)
+        # print(user.email)
+        # print(user.password)
         user.save()
         return user
 
@@ -58,18 +58,18 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         email = attrs.get("email")
-        print(email)
+        # print(email)
         auth_token = attrs.get("auth_token")
-        print(auth_token)
+        # print(auth_token)
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            print("this is the cause")
+            # print("this is the cause")
             raise serializers.ValidationError("Invalid credentials.")
 
         if not user.check_password(auth_token):
-            print("something fishy here")
+            # print("something fishy here")
             raise serializers.ValidationError("Invalid credentials.")
 
         if not user.is_active:

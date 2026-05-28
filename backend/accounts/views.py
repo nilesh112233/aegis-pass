@@ -83,7 +83,7 @@ class LoginView(APIView):
         except UserPreferences.DoesNotExist:
             inactivity_timeout = 15
             
-        print(inactivity_timeout)
+        # print(inactivity_timeout)
 
         response = Response({
             "access": access_token,

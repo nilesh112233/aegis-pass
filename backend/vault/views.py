@@ -332,7 +332,7 @@ class RemoveFromFolderView(APIView):
     
     def patch(self, request):
         item_ids = request.data.get("item_ids", [])
-        print(item_ids)
+        # print(item_ids)
         VaultItem.objects.filter(
             id__in=item_ids,
             user=request.user,
