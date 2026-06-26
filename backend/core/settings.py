@@ -210,6 +210,7 @@ REST_FRAMEWORK = {
         'delete_account': '3/hour',
         'vault_create': '100/hour',
     },
+    "NUM_PROXIES": 1,  
 }
 
 SIMPLE_JWT = {
