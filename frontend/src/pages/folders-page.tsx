@@ -68,7 +68,7 @@ export default function VaultFoldersPage() {
                     No folder
                 </div>
                 <div className="flex text-fg-muted text-xs">
-                    <span></span>
+                    <span>Default</span>
                 </div>
                 <div className="flex justify-end text-xs text-fg-muted mt-6">
                     <span>view</span>

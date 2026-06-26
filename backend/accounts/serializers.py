@@ -58,16 +58,16 @@ class LoginSerializer(serializers.Serializer):
 
     def validate(self, attrs):
         email = attrs.get("email")
-        # print(email)
         auth_token = attrs.get("auth_token")
-        # print(auth_token)
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            # print("this is the cause")
             raise serializers.ValidationError("Invalid credentials.")
 
+        if user.is_locked():
+            raise serializers.ValidationError("Account temporarily locked due to repeated failed attempts. Try again later.")
+            
         if not user.check_password(auth_token):
             # print("something fishy here")
             raise serializers.ValidationError("Invalid credentials.")
@@ -75,6 +75,7 @@ class LoginSerializer(serializers.Serializer):
         if not user.is_active:
             raise serializers.ValidationError("This account has been disabled.")
 
+        user.reset_failed_logins()
         attrs["user"] = user
         return attrs
 

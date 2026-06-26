@@ -110,6 +110,16 @@ DATABASES = {
     )
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env("REDIS_URL"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -186,6 +196,20 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon':           '100/hour',    # unauthenticated requests (per IP)
+        'user':           '1000/hour',   # authenticated requests (per user)
+        'login':          '5/minute',    
+        'register':       '3/hour',
+        'preflight':      '20/minute',   
+        'password_reset': '3/hour',
+        'delete_account': '3/hour',
+        'vault_create': '100/hour',
+    },
 }
 
 SIMPLE_JWT = {

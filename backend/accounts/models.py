@@ -6,6 +6,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.conf import settings
+from datetime import timedelta
+from django.utils import timezone
 
 
 
@@ -40,6 +42,25 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
     objects = UserManager()
+    
+    failed_login_attempts = models.IntegerField(default=0)
+    locked_until = models.DateTimeField(null=True, blank=True)
+
+    def is_locked(self) -> bool:
+        if self.locked_until and self.locked_until > timezone.now():
+            return True
+        return False
+
+    def record_failed_login(self):
+        self.failed_login_attempts += 1
+        if self.failed_login_attempts >= 5:
+            self.locked_until = timezone.now() + timedelta(minutes=15)
+        self.save(update_fields=['failed_login_attempts', 'locked_until'])
+
+    def reset_failed_logins(self):
+        self.failed_login_attempts = 0
+        self.locked_until = None
+        self.save(update_fields=['failed_login_attempts', 'locked_until'])
 
     class Meta:
         db_table = "users"

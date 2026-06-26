@@ -155,7 +155,11 @@ export default function VaultPage() {
                                     <KeyRound />
                                 </div>
                             </div>
-                            <span className="text-xs text-fg-muted">{noOfFolders && `across ${noOfFolders} folders`}</span>
+                            {totalPasswords ? 
+                                <span className="text-xs text-fg-muted">{noOfFolders && `across ${noOfFolders} folders`}</span> 
+                                : 
+                                <span className="text-xs text-fg-muted">No passwords</span>
+                            }
                         </Card>
                         <Card className="p-5 flex-1">
                             <div className="flex justify-between items-center flex-1">
@@ -167,7 +171,11 @@ export default function VaultPage() {
                                     <RotateCcwKey />
                                 </div>
                             </div>
-                            <span className="text-xs text-fg-muted">{noOfPasswordsReused} {noOfPasswordsReused === 1 ? "password is" : "passwords are"} used multiple times</span>
+                            {noOfPasswordsReused ? 
+                                <span className="text-xs text-fg-muted">{noOfPasswordsReused} {noOfPasswordsReused === 1 ? "password is" : "passwords are"} used multiple times</span>
+                                :
+                                <span className="text-xs text-fg-muted">No reused passwords</span>
+                            }
                         </Card>
                         <Card className="p-5 flex-1">
                             <div className="flex justify-between items-center flex-1">
@@ -179,7 +187,11 @@ export default function VaultPage() {
                                     <ShieldQuestionMark />
                                 </div>
                             </div>
-                            <span className="text-xs text-fg-muted">{weakPasswords} {weakPasswords > 1 ? "passwords need attention" : "password needs attention" }</span>
+                            {weakPasswords ?
+                                <span className="text-xs text-fg-muted">{weakPasswords} {weakPasswords > 1 ? "passwords need attention" : "password needs attention" }</span>
+                                :
+                                <span className="text-xs text-fg-muted">No weak passwords.</span>
+                            }
                         </Card>
                         <Card className="p-5 flex-1">
                             <div className="flex justify-between items-center flex-1">

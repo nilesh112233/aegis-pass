@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.throttling import UserRateThrottle, ScopedRateThrottle
 
 from .models import VaultItem
 from .serializer import *
@@ -14,7 +15,9 @@ from .serializer import *
 
 class VaultItemListView(APIView):
     permission_classes = [IsAuthenticated]
-
+    throttle_classes = [UserRateThrottle, ScopedRateThrottle]
+    throttle_scope = "vault_create"
+    
     def get(self, request):
         deleted_param = request.query_params.get("deleted")
 

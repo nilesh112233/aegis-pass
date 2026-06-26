@@ -23,6 +23,12 @@ export async function fetchAuthApi(
 
     const data = await res.json()
 
+    if (res.status === 429) {
+        const retryAfter = res.headers.get("Retry-After");
+        const seconds = retryAfter ? parseInt(retryAfter) : 60;
+        throw new Error(`Too many attempts. Try again in ${seconds} seconds.`);
+    }
+
     if (!res.ok) {
     // surface the first django error message
     const firstError =
@@ -64,6 +70,12 @@ export async function fetchVaultApi(
     }
 
     const text = await res.text();
+
+    if (res.status === 429) {
+        const retryAfter = res.headers.get("Retry-After");
+        const seconds = retryAfter ? parseInt(retryAfter) : 60;
+        throw new Error(`Too many attempts. Try again in ${seconds} seconds.`);
+    }
 
     if (!text) return null;
 
