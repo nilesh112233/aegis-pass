@@ -12,6 +12,7 @@ from rest_framework.throttling import ScopedRateThrottle
 from .serializers import *
 from .models import UserPreferences, UserSession
 from .utils import parse_device_hint
+from .throttles import RealIPScopedThrottle
 
 
 User = get_user_model()
@@ -44,7 +45,7 @@ User = get_user_model()
 
 class PreflightView(APIView):
     permission_classes = [AllowAny]
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [RealIPScopedThrottle]
     throttle_scope = "preflight"
 
     def post(self, request):
@@ -72,7 +73,7 @@ class PreflightView(APIView):
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [RealIPScopedThrottle]
     throttle_scope = "register"
     
     def post(self, request):
@@ -91,7 +92,7 @@ class RegisterView(APIView):
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [RealIPScopedThrottle]
     throttle_scope = "login"
 
     def post(self, request):
@@ -232,7 +233,7 @@ class LogoutView(APIView):
 
 class DeleteAccountView(APIView):
     permission_classes=[IsAuthenticated]
-    throttle_classes = [ScopedRateThrottle]
+    throttle_classes = [RealIPScopedThrottle]
     throttle_scope = "delete_account"
     
     def post(self, request):

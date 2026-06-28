@@ -6,16 +6,17 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.throttling import UserRateThrottle, ScopedRateThrottle
+from rest_framework.throttling import UserRateThrottle
 
 from .models import VaultItem
 from .serializer import *
+from accounts.throttles import RealIPScopedThrottle
 
 # Create your views here.
 
 class VaultItemListView(APIView):
     permission_classes = [IsAuthenticated]
-    throttle_classes = [UserRateThrottle, ScopedRateThrottle]
+    throttle_classes = [UserRateThrottle, RealIPScopedThrottle]
     throttle_scope = "vault_create"
     
     def get(self, request):

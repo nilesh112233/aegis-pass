@@ -197,8 +197,8 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
     'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle',
+        'accounts.throttles.RealIPAnonThrottle',
+        'accounts.throttles.RealIPUserThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
         'anon':           '100/hour',    # unauthenticated requests (per IP)
@@ -210,7 +210,7 @@ REST_FRAMEWORK = {
         'delete_account': '3/hour',
         'vault_create': '100/hour',
     },
-    "NUM_PROXIES": 1,  
+    # "NUM_PROXIES": 1,  
 }
 
 SIMPLE_JWT = {
