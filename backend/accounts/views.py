@@ -17,21 +17,49 @@ from .utils import parse_device_hint
 User = get_user_model()
 
 
+# class PreflightView(APIView):
+#     permission_classes = [AllowAny]
+#     # throttle_classes = [PreflightRateThrottle]
+    
+#     throttle_classes = [ScopedRateThrottle]
+#     throttle_scope = "preflight"
+
+#     def post(self, request):
+#         serializer = PreflightSerializer(data=request.data)
+
+#         if not serializer.is_valid():
+#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#         email = serializer.validated_data["email"]
+
+#         try:
+#             user = User.objects.get(email=email)
+#             kdf_iterations = user.kdf_iterations
+#         except User.DoesNotExist:
+#             kdf_iterations = 600000
+
+#         return Response({"kdf_iterations": kdf_iterations})
+
+# accounts/views.py — temporary debug additions
+
 class PreflightView(APIView):
     permission_classes = [AllowAny]
-    # throttle_classes = [PreflightRateThrottle]
-    
     throttle_classes = [ScopedRateThrottle]
     throttle_scope = "preflight"
 
     def post(self, request):
-        serializer = PreflightSerializer(data=request.data)
+        # temporary debug logging
+        print("=" * 40)
+        print("XFF raw:", request.META.get("HTTP_X_FORWARDED_FOR"))
+        print("REMOTE_ADDR:", request.META.get("REMOTE_ADDR"))
+        print("Computed ident:", self.get_throttles()[0].get_ident(request))
+        print("=" * 40)
 
+        serializer = PreflightSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         email = serializer.validated_data["email"]
-
         try:
             user = User.objects.get(email=email)
             kdf_iterations = user.kdf_iterations
